@@ -1,9 +1,9 @@
 # Настройка версии прошивки
-sed -i 's/^FIRMWARE_ROOTFS_VER.*/FIRMWARE_ROOTFS_VER=XXX/' padavan-ng/trunk/versions.inc
-sed -i 's/^FIRMWARE_BUILDS_VER.*/FIRMWARE_BUILDS_VER=XXXXX/' padavan-ng/trunk/versions.inc
+sed -i 's/^FIRMWARE_ROOTFS_VER.*/FIRMWARE_ROOTFS_VER=3.9L/' padavan-ng/trunk/versions.inc
+sed -i 's/^FIRMWARE_BUILDS_VER.*/FIRMWARE_BUILDS_VER=102/' padavan-ng/trunk/versions.inc
 
 # Настройка версии Zapret
-sed -i 's/^SRC_VER.*/SRC_VER = 72.3/' padavan-ng/trunk/user/nfqws/Makefile
+COMMIT_HASH=$(git ls-remote https://github.com/bol-van/zapret HEAD | awk '{print $1}')
+git ls-remote --refs --tags https://github.com/bol-van/zapret | grep "$COMMIT_HASH" | awk '{print $2}' | sed -i 's/^SRC_VER.*/SRC_VER = /refs\/tags\////' padavan-ng/trunk/user/nfqws/Makefile
 cd padavan-ng/trunk/user/nfqws
 find . -maxdepth 1 -not -name Makefile -not -name patches -print0 | xargs -0 rm -rf --
-
